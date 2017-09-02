@@ -75,6 +75,7 @@ public class NotificationPresets {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setDeleteIntent(NotificationUtil.getExamplePendingIntent(
                         context, R.string.example_notification_deleted));
+        //options 添加Action
         options.actionsPreset.apply(context, builder, wearableOptions);
         options.priorityPreset.apply(builder, wearableOptions);
         if (options.includeLargeIcon) {
@@ -82,6 +83,10 @@ public class NotificationPresets {
                     context.getResources(), R.drawable.example_large_icon));
         }
         if (options.isLocalOnly) {
+            /*
+             * Some notifications can be bridged to other devices for remote display.
+             * This hint can be set to recommend this notification not be bridged
+             */
             builder.setLocalOnly(true);
         }
         if (options.hasContentIntent) {
@@ -89,6 +94,9 @@ public class NotificationPresets {
                     R.string.content_intent_clicked));
         }
         if (options.vibrate) {
+            /*
+            vibration pattern
+             */
             builder.setVibrate(new long[] {0, 100, 50, 100} );
         }
         return builder;
@@ -106,6 +114,7 @@ public class NotificationPresets {
             NotificationCompat.WearableExtender wearableOptions =
                     new NotificationCompat.WearableExtender();
             applyBasicOptions(context, builder, wearableOptions, options);
+
             builder.extend(wearableOptions);
             return new Notification[] { builder.build() };
         }
